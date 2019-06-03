@@ -1,0 +1,128 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tri_bulles.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkibonzi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/23 19:20:39 by bkibonzi          #+#    #+#             */
+/*   Updated: 2019/01/24 18:00:44 by bkibonzi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include <stdio.h>
+# include <unistd.h>
+
+void ft_putchar(char c)
+{
+	write(1, &c, 1); 
+}
+
+void	ft_putstr(char *str)
+{
+	int i; 
+
+	i = 0; 
+	while(str[i] != '\n')
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+}
+
+void ft_putnbr(int n)
+{
+	long nb; 
+
+	nb = n; 
+
+	if (nb < 0)
+	{
+		ft_putchar('-'); 
+		nb = nb * -1;
+	}
+	if (nb >= 10) 
+	{
+		ft_putnbr(nb / 10);
+	}
+	ft_putchar(nb % 10 + '0');
+}
+
+void	ft_swap_nombres(int *a, int *b)
+{
+	int temp; 
+
+	temp = *a; 
+	*a = *b;
+	*b = temp; 
+}
+
+void ft_tri_bulles(int *tab)
+{
+	int i; 
+	int size_tab; 
+
+	size_tab = sizeof(tab)/sizeof(tab[0]) ;
+	
+	i = 0;
+	while (i < size_tab)
+	{
+		if (tab[i] > tab[i+1])
+		{
+	ft_swap_nombres(&tab[i], &tab[i+1]);
+			i = 0; 
+		}
+		else 
+			i++;
+	}	
+}
+
+
+int main()
+{
+	int v_tab[] = {1, 2, 3, 4, 7, 98, 0, 12, 35, 99, 14};
+
+    int i; 
+	int size_tab; 
+
+
+	size_tab = sizeof(v_tab)/sizeof(v_tab[0]) ;
+
+	ft_putchar('\n');
+// affichage du tableau avant tri 
+	i = 0;
+	while (i < size_tab)
+	{
+		ft_putnbr(v_tab[i]);
+		ft_putchar(',');
+		ft_putchar(' '); 
+		i++; 
+	}
+	ft_putchar('\n');
+
+	ft_tri_bulles(v_tab);
+//	tri du tableau 
+	i = 0; 
+	while (i <  (size_tab -1))
+	{
+		if (v_tab[i] > v_tab[i+1])
+		{
+			ft_swap_nombres(&v_tab[i], &v_tab[i+1]);
+			i = 0;
+		}
+		else
+			i++;
+	}
+// affichage du tableau qpres tri
+	i = 0;
+	while (i < size_tab)
+	{
+		ft_putnbr(v_tab[i]);
+		ft_putchar(',');
+		ft_putchar(' '); 
+		i++; 
+	}
+	ft_putchar('\n');
+
+	return (0);
+}
